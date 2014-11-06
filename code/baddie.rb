@@ -1,42 +1,25 @@
-require 'thing'
+require 'actor'
 
-class Baddie < Thing
+class Baddie < Actor
   COLOR = Color[50, 150, 50]
 
   def update(game, scene, elapsed)
     move(game, scene) if scene.new_turn?
   end
 
-  def move(game, scene)
+  def movement(game, scene)
     target = scene.things.find(&:good?)
 
-    return if target.nil?
+    return [0, 0] if target.nil?
 
     move_x = move_y = 0
 
     move_x += 1 if target.x > x
     move_x -= 1 if target.x < x
-    move_y += 1 if target.y > y && move_x.zero?
-    move_y -= 1 if target.y < y && move_x.zero?
+    move_y += 1 if target.y > y
+    move_y -= 1 if target.y < y
 
-    return if move_x.zero? && move_y.zero?
-
-    collidee = scene.find_collision(self, @x + move_x, @y + move_y)
-
-    if collidee.nil?
-      self.x += move_x
-      self.y += move_y
-    else
-      collidee_collidee =
-        scene.find_collision(collidee, collidee.x + move_x, collidee.y + move_y)
-
-      if collidee.pushable? && collidee_collidee.nil?
-        collidee.x += move_x
-        collidee.y += move_y
-        self.x += move_x
-        self.y += move_y
-      end
-    end
+    [move_x, move_y]
   end
 
   def draw(display)
