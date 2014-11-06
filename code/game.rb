@@ -17,10 +17,12 @@ class Rogueliek < Game
     @input.right if keyboard.pressed? :right
 
     @scene.update(self, elapsed)
-    @scene.draw(display)
+    @scene.draw(self)
 
-    display.fill_color = Color[255, 255, 255]
-    display.fill_text(ticker.ticks_per_second, display.width - 32, 32)
+    if keyboard.pressing? :f
+      display.fill_color = Color[255, 255, 255]
+      display.fill_text(ticker.ticks_per_second, display.width - 32, 32)
+    end
 
     @input.reset
   end

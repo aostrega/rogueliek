@@ -15,6 +15,10 @@ class Actor < Thing
     [0, 0]
   end
 
+  def update(game, space, elapsed)
+    game.lose if @health <= 0
+  end
+
   def move(game, scene)
     move_x, move_y = movement(game, scene)
 

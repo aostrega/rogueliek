@@ -3,6 +3,7 @@ require 'actor'
 class Baddie < Actor
   def update(game, scene, elapsed)
     move(game, scene) if scene.new_turn?
+    scene.win(game) if @health <= 0
   end
 
   def movement(game, scene)

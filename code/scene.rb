@@ -20,7 +20,7 @@ class Scene
       @things << Wall.new(n, 9)
     end
 
-    [Boulder, Boulder, Boulder, Hero, Baddie].each do |thing|
+    [Boulder, Boulder, Boulder, Baddie, Hero].each do |thing|
       x = rand(1..8)
       y = rand(1..8)
 
@@ -39,11 +39,25 @@ class Scene
     @things.each { |t| t.update(game, self, elapsed) }
   end
 
-  def draw(display)
-    display.fill_color = COLOR
-    display.clear
+  def draw(game)
+    game.display.fill_color = COLOR
+    game.display.clear
 
-    @things.each { |t| t.draw(display) }
+    @things.each { |t| t.draw(game.display) }
+
+    if @lost_tick
+      if game.ticker.tick_count - @lost_tick < 100
+        game.display.fill_color = Color[0, 0, 0]
+        game.display.clear
+      else
+        initialize
+        @lost_tick = nil
+      end
+    elsif @won_tick
+      ticks = game.ticker.tick_count - @won_tick
+      hero = things.find { |t| t.is_a? Hero }
+      hero.health += 2
+    end
   end
 
   def find_collision(t, x, y)
@@ -56,5 +70,13 @@ class Scene
 
   def new_turn?
     @new_turn
+  end
+
+  def win(game)
+    @won_tick ||= game.ticker.tick_count
+  end
+
+  def lose(game)
+    @lost_tick ||= game.ticker.tick_count
   end
 end
