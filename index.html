@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+  <style>
+    html, body {
+      overflow: hidden;
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background: black;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+    }
+
+    canvas {
+      image-rendering: optimizeSpeed;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: optimize-contrast;
+      image-rendering: crisp-edges;
+      image-rendering: pixelated;
+      -ms-interpolation-mode: nearest-neighbor;
+    }
+
+    .center-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+
+  <script>
+    function scaleDisplay() {
+      DISPLAY.$send('scale_to_window');
+    }
+
+    document.addEventListener('keydown', function(event) {
+      event.preventDefault();
+    });
+  </script>
+</head>
+<body class="center-content" onresize="scaleDisplay()" oncontextmenu="return false">
+  <canvas></canvas>
+
+  <div class="hidden">
+    
+  </div>
+
+  <script src="./assets/yeah/web/dependencies.js"></script>
+  <script src="./assets/yeah/web.js"></script>
+  <script src="./assets/yeah/web/setup.js"></script>
+
+  <script src="./assets/config.js"></script>
+  <script src="./assets/game.js"></script>
+
+  <script src="./assets/yeah/web/start.js"></script>
+
+  <script>scaleDisplay()</script>
+</body>
+</html>
