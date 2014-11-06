@@ -541,7 +541,8 @@ if (t == null) t = nil;
           return game.$display().$clear();
           } else {
           self.$initialize();
-          return self.lost_tick = nil;
+          self.lost_tick = nil;
+          return self.won_tick = nil;
         }
       } else if ((($a = self.won_tick) !== nil && (!$a.$$is_boolean || $a == true))) {
         ticks = $rb_minus(game.$ticker().$tick_count(), self.won_tick);
