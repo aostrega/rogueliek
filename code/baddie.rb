@@ -1,8 +1,6 @@
 require 'actor'
 
 class Baddie < Actor
-  COLOR = Color[50, 150, 50]
-
   def update(game, scene, elapsed)
     move(game, scene) if scene.new_turn?
   end
@@ -22,8 +20,15 @@ class Baddie < Actor
     [move_x, move_y]
   end
 
-  def draw(display)
-    display.fill_color = COLOR
-    display.fill_ellipse(@x * 64 + 32, @y * 64 + 32, 24, 24)
+  def max_health
+    12
+  end
+
+  def attack_range
+    (1..4)
+  end
+
+  def color
+    @color ||= Color[50, 150, 50]
   end
 end

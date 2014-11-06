@@ -1,8 +1,6 @@
 require 'actor'
 
 class Hero < Actor
-  COLOR = Color[150, 50, 50]
-
   def update(game, scene, elapsed)
     move(game, scene) if scene.new_turn?
   end
@@ -18,12 +16,19 @@ class Hero < Actor
     [move_x, move_y]
   end
 
-  def draw(display)
-    display.fill_color = COLOR
-    display.fill_ellipse(@x * 64 + 32, @y * 64 + 32, 24, 24)
+  def max_health
+    10
+  end
+
+  def attack_range
+    (1..3)
   end
 
   def good?
     true
+  end
+
+  def color
+    @color ||= Color[150, 50, 50]
   end
 end
