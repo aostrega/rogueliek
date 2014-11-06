@@ -14,4 +14,8 @@ class Thing
   def pushable?
     false
   end
+
+  def good?
+    false
+  end
 end

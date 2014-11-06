@@ -1,15 +1,23 @@
 require 'thing'
 
-class Player < Thing
-  COLOR = Color[150, 50, 50]
+class Baddie < Thing
+  COLOR = Color[50, 150, 50]
 
   def update(game, scene, elapsed)
+    move(game, scene) if scene.new_turn?
+  end
+
+  def move(game, scene)
+    target = scene.things.find(&:good?)
+
+    return if target.nil?
+
     move_x = move_y = 0
 
-    move_x += 1 if game.keyboard.pressed? :right
-    move_x -= 1 if game.keyboard.pressed? :left
-    move_y += 1 if game.keyboard.pressed? :down
-    move_y -= 1 if game.keyboard.pressed? :up
+    move_x += 1 if target.x > x
+    move_x -= 1 if target.x < x
+    move_y += 1 if target.y > y && move_x.zero?
+    move_y -= 1 if target.y < y && move_x.zero?
 
     return if move_x.zero? && move_y.zero?
 
