@@ -52,6 +52,7 @@ class Scene
       else
         initialize
         @lost_tick = nil
+        @won_tick = nil
       end
     elsif @won_tick
       ticks = game.ticker.tick_count - @won_tick
