@@ -20,11 +20,17 @@ class Scene
       @things << Wall.new(n, 9)
     end
 
-    @things << Boulder.new(7, 6)
-    @things << Boulder.new(3, 4)
+    [Boulder, Boulder, Boulder, Hero, Baddie].each do |thing|
+      x = rand(1..8)
+      y = rand(1..8)
 
-    @things << Hero.new(5, 5)
-    @things << Baddie.new(8, 8)
+      begin
+        x = rand(1..8)
+        y = rand(1..8)
+      end until find_collision(nil, x, y).nil?
+
+      @things << thing.new(x, y)
+    end
   end
 
   def update(game, elapsed)
