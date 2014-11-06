@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'yeah', path: '../yeah'
+gem 'yeah', github: 'yeahrb/yeah', ref: '250836d'
