@@ -15,7 +15,9 @@ class Scene
       @things << Wall.new(n, 9)
     end
     @things << Player.new(5, 5)
+
     @things << Boulder.new(7, 6)
+    @things << Boulder.new(3, 4)
   end
 
   def update(game, elapsed)
